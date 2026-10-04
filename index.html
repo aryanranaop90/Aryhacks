@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080a12">
-<title>ARYHACKS 6¦1 Link Hub</title>
+<title>ARYHACKS â€¢ Link Hub</title>
 
 <style>
 :root{
@@ -1033,7 +1033,7 @@ a{
   <div class="modal">
     <div class="modal-head">
       <h2 id="modalTitle">Add Link</h2>
-      <button class="btn icon-btn" id="closeModal">7½9</button>
+      <button class="btn icon-btn" id="closeModal">âœ•</button>
     </div>
 
     <form id="linkForm">
@@ -1071,7 +1071,7 @@ a{
                 class="btn"
                 id="faviconBtn"
                 style="margin-top:8px">
-          ”9±4 Use Website Favicon
+          ðŸŒ Use Website Favicon
         </button>
       </div>
 
@@ -1090,7 +1090,7 @@ a{
       </div>
 
       <div class="switch-row">
-        <span>8¬2 Pin this link</span>
+        <span>â­ Pin this link</span>
         <button type="button" class="switch" id="favoriteSwitch"></button>
       </div>
 
@@ -1126,7 +1126,7 @@ const defaultState = {
     accent:"#7c5cff",
     theme:"dark",
     showSearch:true,
-    footer:"0„8 2026 ARYHACKS 6¦1 All rights reserved."
+    footer:"Â© 2026 ARYHACKS â€¢ All rights reserved."
   },
 
   links:[
@@ -1456,12 +1456,12 @@ function renderHome(){
             class="btn icon-btn"
             id="themeBtn"
             title="Change theme">
-            ${state.settings.theme === "dark" ? "7¢7„1‚5" : "”9²3"}
+            ${state.settings.theme === "dark" ? "â˜€ï¸" : "ðŸŒ™"}
           </button>
 
           <a href="#/manage"
              class="btn">
-             7±5„1‚5 <span class="label">Manage</span>
+             âš™ï¸ <span class="label">Manage</span>
           </a>
 
         </div>
@@ -1511,7 +1511,7 @@ function renderHome(){
 
       <div class="search-wrap">
 
-        <span class="search-icon">6é5</span>
+        <span class="search-icon">âŒ•</span>
 
         <input
           id="publicSearch"
@@ -1534,7 +1534,7 @@ function renderHome(){
             }"
             data-filter="${escapeHTML(cat)}">
 
-            ${cat === "Pinned" ? "8¬2 " : ""}
+            ${cat === "Pinned" ? "â­ " : ""}
             ${escapeHTML(cat)}
 
           </button>
@@ -1547,7 +1547,7 @@ function renderHome(){
               currentFilter === "Pinned" ? "active" : ""
             }"
             data-filter="Pinned">
-            8¬2 Pinned
+            â­ Pinned
           </button>
         ` : ""}
 
@@ -1585,7 +1585,7 @@ function renderHome(){
 
                   ${
                     link.favorite
-                    ? `<span title="Pinned">8¬2</span>`
+                    ? `<span title="Pinned">â­</span>`
                     : ""
                   }
 
@@ -1608,7 +1608,7 @@ function renderHome(){
               </div>
 
               <div class="link-arrow">
-                ¨J
+                â†—
               </div>
 
             </a>
@@ -1734,7 +1734,7 @@ function renderLogin(){
                 type="button"
                 class="eye"
                 id="showPassword">
-                ”9Ï9
+                ðŸ‘
               </button>
 
             </div>
@@ -1746,7 +1746,7 @@ function renderLogin(){
             style="width:100%"
             type="submit">
 
-            ”9ä6 Login to Dashboard
+            ðŸ” Login to Dashboard
 
           </button>
 
@@ -1757,7 +1757,7 @@ function renderLogin(){
           class="btn"
           style="width:100%;margin-top:10px">
 
-          ¡û Back to Website
+          â† Back to Website
 
         </a>
 
@@ -1862,13 +1862,13 @@ function renderAdmin(){
         <div class="nav-actions">
 
           <a href="#/home" class="btn">
-            ”9Ï9 <span class="label">Preview</span>
+            ðŸ‘ <span class="label">Preview</span>
           </a>
 
           <button
             class="btn danger"
             id="logoutBtn">
-            •06 <span class="label">Logout</span>
+            ðŸšª <span class="label">Logout</span>
           </button>
 
         </div>
@@ -1894,7 +1894,7 @@ function renderAdmin(){
         <button
           class="btn primary"
           id="addLinkBtn">
-          £« Add Link
+          ï¼‹ Add Link
         </button>
 
       </div>
@@ -1902,25 +1902,25 @@ function renderAdmin(){
       <section class="dashboard-stats">
 
         <div class="dash-card glass">
-          <div class="dash-icon">”9å3</div>
+          <div class="dash-icon">ðŸ”—</div>
           <strong>${state.links.length}</strong>
           <span>Total Links</span>
         </div>
 
         <div class="dash-card glass">
-          <div class="dash-icon">8¬2</div>
+          <div class="dash-icon">â­</div>
           <strong>${pinned}</strong>
           <span>Pinned Links</span>
         </div>
 
         <div class="dash-card glass">
-          <div class="dash-icon">”9È5„1‚5</div>
+          <div class="dash-icon">ðŸ·ï¸</div>
           <strong>${categories}</strong>
           <span>Categories</span>
         </div>
 
         <div class="dash-card glass">
-          <div class="dash-icon">”9Ü4</div>
+          <div class="dash-icon">ðŸ’¾</div>
           <strong>ON</strong>
           <span>Auto Save</span>
         </div>
@@ -2050,7 +2050,7 @@ function renderAdmin(){
               style="width:100%"
               id="saveSettings">
 
-              7½7 Save Website Settings
+              âœ“ Save Website Settings
 
             </button>
 
@@ -2073,13 +2073,13 @@ function renderAdmin(){
               <button
                 class="btn success"
                 id="exportBtn">
-                8¤9 Export
+                â¬‡ Export
               </button>
 
               <button
                 class="btn"
                 id="importBtn">
-                8¤8 Import
+                â¬† Import
               </button>
 
               <input
@@ -2096,7 +2096,7 @@ function renderAdmin(){
               id="resetBtn"
               style="width:100%;margin-top:8px">
 
-              7®5 Reset Everything
+              â™» Reset Everything
 
             </button>
 
@@ -2121,7 +2121,7 @@ function renderAdmin(){
               <button
                 class="btn"
                 id="adminSearchBtn">
-                ”9ä4 Search
+                ðŸ”Ž Search
               </button>
 
             </div>
@@ -2130,7 +2130,7 @@ function renderAdmin(){
               id="adminSearchWrap"
               class="search-wrap hidden">
 
-              <span class="search-icon">6é5</span>
+              <span class="search-icon">âŒ•</span>
 
               <input
                 class="search"
@@ -2184,7 +2184,7 @@ function renderAdminLinks(){
       draggable="true"
       data-id="${escapeHTML(link.id)}">
 
-      <span class="drag">6å76å7</span>
+      <span class="drag">â‹®â‹®</span>
 
       <img
         class="admin-link-image"
@@ -2201,7 +2201,7 @@ function renderAdminLinks(){
 
           ${escapeHTML(link.name)}
 
-          ${link.favorite ? " 8¬2" : ""}
+          ${link.favorite ? " â­" : ""}
 
         </strong>
 
@@ -2222,7 +2222,7 @@ function renderAdminLinks(){
           data-action="up"
           data-id="${escapeHTML(link.id)}"
           title="Move up">
-          ¡ü
+          â†‘
         </button>
 
         <button
@@ -2230,7 +2230,7 @@ function renderAdminLinks(){
           data-action="down"
           data-id="${escapeHTML(link.id)}"
           title="Move down">
-          ¡ý
+          â†“
         </button>
 
         <button
@@ -2238,7 +2238,7 @@ function renderAdminLinks(){
           data-action="edit"
           data-id="${escapeHTML(link.id)}"
           title="Edit">
-          7½2
+          âœŽ
         </button>
 
         <button
@@ -2246,7 +2246,7 @@ function renderAdminLinks(){
           data-action="delete"
           data-id="${escapeHTML(link.id)}"
           title="Delete">
-          ”9÷9
+          ðŸ—‘
         </button>
 
       </div>
