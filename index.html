@@ -1,0 +1,3132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a12">
+<title>ARYHACKS • Link Hub</title>
+
+<style>
+:root{
+  --accent:#7c5cff;
+  --accent-rgb:124,92,255;
+  --bg:#070911;
+  --bg2:#0d1020;
+  --card:rgba(255,255,255,.055);
+  --card2:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.10);
+  --text:#f7f7fb;
+  --muted:#969caf;
+  --danger:#ff5570;
+  --success:#35d49a;
+  --shadow:0 25px 80px rgba(0,0,0,.35);
+  --radius:22px;
+}
+
+[data-theme="light"]{
+  --bg:#f4f6fb;
+  --bg2:#ffffff;
+  --card:rgba(255,255,255,.8);
+  --card2:#ffffff;
+  --border:rgba(20,25,40,.10);
+  --text:#151824;
+  --muted:#667085;
+  --shadow:0 20px 60px rgba(25,35,60,.12);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  font-family:
+    Inter,ui-sans-serif,system-ui,-apple-system,
+    BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(var(--accent-rgb),.18),transparent 30%),
+    radial-gradient(circle at 90% 20%,rgba(0,210,255,.08),transparent 25%),
+    linear-gradient(145deg,var(--bg),var(--bg2));
+  color:var(--text);
+  transition:.3s ease;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  background:var(--bg);
+  transition:.5s;
+}
+
+.loader.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-ring{
+  width:55px;
+  height:55px;
+  border:4px solid rgba(255,255,255,.08);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+.container{
+  width:min(1120px,calc(100% - 30px));
+  margin:auto;
+}
+
+.glass{
+  background:var(--card);
+  border:1px solid var(--border);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:var(--shadow);
+}
+
+.btn{
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--text);
+  border-radius:13px;
+  padding:11px 16px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.2s;
+  font-weight:700;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  border-color:rgba(var(--accent-rgb),.5);
+}
+
+.btn.primary{
+  border:none;
+  color:white;
+  background:linear-gradient(135deg,var(--accent),#9b6cff);
+  box-shadow:0 10px 30px rgba(var(--accent-rgb),.25);
+}
+
+.btn.danger{
+  color:white;
+  background:rgba(255,85,112,.13);
+  border-color:rgba(255,85,112,.3);
+}
+
+.btn.success{
+  color:white;
+  background:rgba(53,212,154,.13);
+  border-color:rgba(53,212,154,.3);
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  padding:0;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  background:rgba(var(--accent-rgb),.12);
+  color:var(--accent);
+  border:1px solid rgba(var(--accent-rgb),.2);
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   PUBLIC HEADER
+========================= */
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  padding:14px 0;
+  background:rgba(7,9,17,.62);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+
+[data-theme="light"] .topbar{
+  background:rgba(244,246,251,.72);
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+}
+
+.brand-logo{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  object-fit:cover;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.brand-text{
+  min-width:0;
+}
+
+.brand-title{
+  font-weight:900;
+  letter-spacing:-.4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.nav-actions{
+  display:flex;
+  gap:8px;
+}
+
+/* =========================
+   PUBLIC HERO
+========================= */
+
+.hero{
+  text-align:center;
+  padding:72px 0 35px;
+}
+
+.hero-logo{
+  width:105px;
+  height:105px;
+  object-fit:cover;
+  border-radius:32px;
+  border:1px solid var(--border);
+  box-shadow:
+    0 0 0 8px rgba(var(--accent-rgb),.04),
+    0 25px 70px rgba(var(--accent-rgb),.18);
+  margin-bottom:22px;
+  animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+  50%{transform:translateY(-7px)}
+}
+
+.hero h1{
+  font-size:clamp(35px,7vw,65px);
+  line-height:1;
+  letter-spacing:-3px;
+  margin-bottom:15px;
+  background:linear-gradient(135deg,var(--text),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  max-width:650px;
+  margin:auto;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:25px auto;
+  max-width:700px;
+}
+
+.stat{
+  padding:18px;
+  border-radius:18px;
+}
+
+.stat strong{
+  display:block;
+  font-size:25px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-wrap{
+  position:relative;
+  margin:28px 0 15px;
+}
+
+.search{
+  width:100%;
+  padding:16px 18px 16px 48px;
+  border-radius:17px;
+  border:1px solid var(--border);
+  outline:none;
+  background:var(--card);
+  color:var(--text);
+  backdrop-filter:blur(20px);
+  transition:.2s;
+}
+
+.search:focus{
+  border-color:rgba(var(--accent-rgb),.6);
+  box-shadow:0 0 0 4px rgba(var(--accent-rgb),.08);
+}
+
+.search-icon{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:4px 1px 12px;
+  scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter{
+  white-space:nowrap;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--muted);
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.filter.active{
+  color:white;
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+/* =========================
+   LINKS
+========================= */
+
+.link-list{
+  display:grid;
+  gap:12px;
+  margin-top:10px;
+}
+
+.link-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:15px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  transition:.25s;
+  overflow:hidden;
+  animation:cardIn .4s ease both;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.link-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:var(--accent);
+  opacity:0;
+  transition:.2s;
+}
+
+.link-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(var(--accent-rgb),.35);
+  box-shadow:0 18px 45px rgba(0,0,0,.18);
+}
+
+.link-card:hover::before{
+  opacity:1;
+}
+
+.link-image{
+  width:55px;
+  height:55px;
+  border-radius:16px;
+  object-fit:cover;
+  flex-shrink:0;
+  background:var(--card2);
+  border:1px solid var(--border);
+}
+
+.link-info{
+  min-width:0;
+  flex:1;
+}
+
+.link-title{
+  font-size:15px;
+  font-weight:850;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.link-description{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.link-meta{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:7px;
+}
+
+.link-arrow{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:rgba(var(--accent-rgb),.09);
+  color:var(--accent);
+  flex-shrink:0;
+  font-size:20px;
+}
+
+.empty{
+  text-align:center;
+  padding:55px 20px;
+  border-radius:22px;
+  color:var(--muted);
+}
+
+.empty strong{
+  color:var(--text);
+  display:block;
+  margin-bottom:7px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  padding:45px 0 30px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin{
+  padding:35px 0 60px;
+}
+
+.admin-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.admin-title h1{
+  font-size:32px;
+  letter-spacing:-1px;
+}
+
+.admin-title p{
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.dashboard-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.dash-card{
+  padding:20px;
+  border-radius:20px;
+}
+
+.dash-icon{
+  font-size:23px;
+  margin-bottom:12px;
+}
+
+.dash-card strong{
+  display:block;
+  font-size:27px;
+}
+
+.dash-card span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.admin-grid{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:18px;
+}
+
+.panel{
+  padding:20px;
+  border-radius:23px;
+  margin-bottom:18px;
+}
+
+.panel-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.panel-head h2{
+  font-size:16px;
+}
+
+.panel-head p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.input,
+.textarea,
+.select{
+  width:100%;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,.12);
+  color:var(--text);
+  outline:none;
+  border-radius:13px;
+  padding:12px 13px;
+}
+
+[data-theme="light"] .input,
+[data-theme="light"] .textarea,
+[data-theme="light"] .select{
+  background:rgba(0,0,0,.035);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus{
+  border-color:rgba(var(--accent-rgb),.65);
+  box-shadow:0 0 0 3px rgba(var(--accent-rgb),.08);
+}
+
+.textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.color-row{
+  display:flex;
+  gap:10px;
+}
+
+.color-input{
+  width:55px;
+  height:45px;
+  border:none;
+  padding:3px;
+  border-radius:12px;
+  background:transparent;
+}
+
+.switch-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.switch-row:last-child{
+  border-bottom:0;
+}
+
+.switch-row span{
+  font-size:12px;
+  font-weight:700;
+}
+
+.switch{
+  width:44px;
+  height:24px;
+  border-radius:999px;
+  background:#444;
+  padding:3px;
+  transition:.2s;
+}
+
+.switch::after{
+  content:"";
+  display:block;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:white;
+  transition:.2s;
+}
+
+.switch.on{
+  background:var(--accent);
+}
+
+.switch.on::after{
+  transform:translateX(20px);
+}
+
+.admin-links{
+  display:grid;
+  gap:9px;
+}
+
+.admin-link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:rgba(255,255,255,.025);
+  transition:.2s;
+}
+
+.admin-link.dragging{
+  opacity:.4;
+  transform:scale(.98);
+}
+
+.drag{
+  color:var(--muted);
+  cursor:grab;
+  font-size:18px;
+}
+
+.admin-link-image{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  object-fit:cover;
+  border:1px solid var(--border);
+  background:var(--card2);
+}
+
+.admin-link-info{
+  min-width:0;
+  flex:1;
+}
+
+.admin-link-info strong{
+  font-size:13px;
+  display:block;
+}
+
+.admin-link-info small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.admin-actions{
+  display:flex;
+  gap:5px;
+}
+
+.mini-btn{
+  width:35px;
+  height:35px;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--card);
+  color:var(--text);
+}
+
+.mini-btn:hover{
+  border-color:rgba(var(--accent-rgb),.5);
+}
+
+.backup-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-screen{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+
+.login-box{
+  width:min(430px,100%);
+  padding:30px;
+  border-radius:28px;
+  text-align:center;
+}
+
+.login-logo{
+  width:75px;
+  height:75px;
+  object-fit:cover;
+  border-radius:22px;
+  margin-bottom:18px;
+}
+
+.login-box h1{
+  font-size:27px;
+  margin-bottom:7px;
+}
+
+.login-box p{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+.password-wrap{
+  position:relative;
+}
+
+.password-wrap input{
+  padding-right:50px;
+}
+
+.eye{
+  position:absolute;
+  right:8px;
+  top:6px;
+  height:36px;
+  width:38px;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-bg{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  place-items:center;
+  padding:15px;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(9px);
+}
+
+.modal-bg.open{
+  display:grid;
+}
+
+.modal{
+  width:min(560px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:22px;
+  border-radius:25px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  box-shadow:0 40px 100px rgba(0,0,0,.5);
+  animation:modalIn .25s ease;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.modal-head h2{
+  font-size:19px;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:18px;
+}
+
+.preview-image{
+  width:60px;
+  height:60px;
+  border-radius:16px;
+  object-fit:cover;
+  border:1px solid var(--border);
+  display:block;
+  margin-bottom:10px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast-container{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:1000;
+  display:grid;
+  gap:8px;
+  width:min(360px,calc(100% - 32px));
+}
+
+.toast{
+  padding:14px 15px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:rgba(15,17,28,.92);
+  color:white;
+  box-shadow:0 15px 50px rgba(0,0,0,.35);
+  animation:toastIn .25s ease;
+  font-size:13px;
+}
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateX(15px);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+  .admin-grid{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard-stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .container{
+    width:min(100% - 20px,1120px);
+  }
+
+  .hero{
+    padding-top:50px;
+  }
+
+  .hero h1{
+    letter-spacing:-2px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .stat{
+    padding:14px 7px;
+  }
+
+  .stat strong{
+    font-size:20px;
+  }
+
+  .dashboard-stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .admin-header{
+    align-items:flex-start;
+  }
+
+  .admin-title h1{
+    font-size:25px;
+  }
+
+  .nav-actions .label{
+    display:none;
+  }
+
+  .link-card{
+    padding:12px;
+  }
+
+  .link-image{
+    width:48px;
+    height:48px;
+  }
+
+  .backup-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+</div>
+
+<div id="app"></div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LINK MODAL -->
+<div class="modal-bg" id="linkModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Add Link</h2>
+      <button class="btn icon-btn" id="closeModal">✕</button>
+    </div>
+
+    <form id="linkForm">
+
+      <input type="hidden" id="editId">
+
+      <div class="form-group">
+        <label>LINK NAME</label>
+        <input class="input" id="linkName" required
+               placeholder="My Website">
+      </div>
+
+      <div class="form-group">
+        <label>URL</label>
+        <input class="input" id="linkUrl" type="url" required
+               placeholder="https://example.com">
+      </div>
+
+      <div class="form-group">
+        <label>IMAGE / LOGO URL</label>
+
+        <img
+          id="imagePreview"
+          class="preview-image"
+          src=""
+          alt=""
+          onerror="this.style.display='none'"
+          style="display:none"
+        >
+
+        <input class="input" id="linkImage"
+               placeholder="https://example.com/logo.png">
+
+        <button type="button"
+                class="btn"
+                id="faviconBtn"
+                style="margin-top:8px">
+          🌐 Use Website Favicon
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label>DESCRIPTION</label>
+        <textarea class="textarea" id="linkDescription"
+                  placeholder="Short description..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>CATEGORY</label>
+        <input class="input" id="linkCategory"
+               list="categoryList"
+               placeholder="Social">
+        <datalist id="categoryList"></datalist>
+      </div>
+
+      <div class="switch-row">
+        <span>⭐ Pin this link</span>
+        <button type="button" class="switch" id="favoriteSwitch"></button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn" id="cancelModal">
+          Cancel
+        </button>
+
+        <button class="btn primary" type="submit">
+          Save Link
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   LINKVAULT ADVANCED
+========================================================= */
+
+const ADMIN_PASSWORD = "ARYHACKS";
+const STORAGE_KEY = "ARYHACKS_LINKHUB_V5";
+
+const defaultState = {
+  version:5,
+
+  settings:{
+    title:"ARYHACKS",
+    description:"My official collection of links, projects and resources.",
+    logo:"",
+    accent:"#7c5cff",
+    theme:"dark",
+    showSearch:true,
+    footer:"© 2026 ARYHACKS • All rights reserved."
+  },
+
+  links:[
+    {
+      id:"demo-1",
+      name:"My Website",
+      url:"https://example.com",
+      image:"",
+      description:"My official website",
+      category:"Website",
+      favorite:true
+    },
+    {
+      id:"demo-2",
+      name:"YouTube",
+      url:"https://youtube.com",
+      image:"",
+      description:"My YouTube channel",
+      category:"Social",
+      favorite:false
+    }
+  ]
+};
+
+let state = loadState();
+let currentFilter = "All";
+let currentSearch = "";
+let isAdmin = false;
+let draggedId = null;
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function clone(obj){
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function loadState(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if(!saved) return clone(defaultState);
+
+    const parsed = JSON.parse(saved);
+
+    return normalizeState(parsed);
+
+  }catch(error){
+
+    console.error(error);
+
+    return clone(defaultState);
+  }
+}
+
+function saveState(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state)
+  );
+}
+
+function normalizeState(raw){
+
+  const base = clone(defaultState);
+
+  if(raw && raw.settings){
+
+    base.settings = {
+      ...base.settings,
+      ...raw.settings
+    };
+  }
+
+  if(Array.isArray(raw?.links)){
+
+    base.links = raw.links
+      .filter(x => x && x.name && x.url)
+      .map(x => ({
+        id:x.id || uid(),
+        name:String(x.name).slice(0,100),
+        url:normalizeUrl(x.url),
+        image:String(x.image || ""),
+        description:String(x.description || "").slice(0,220),
+        category:String(x.category || "Other").slice(0,40),
+        favorite:Boolean(x.favorite)
+      }))
+      .filter(x => x.url);
+  }
+
+  return base;
+}
+
+function uid(){
+
+  return "link_" +
+    Date.now().toString(36) +
+    Math.random().toString(36).slice(2,8);
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function normalizeUrl(value){
+
+  let url = String(value || "").trim();
+
+  if(!url) return "";
+
+  if(!/^https?:\/\//i.test(url)){
+    url = "https://" + url;
+  }
+
+  try{
+
+    const u = new URL(url);
+
+    if(!["http:","https:"].includes(u.protocol)){
+      return "";
+    }
+
+    return u.href;
+
+  }catch{
+    return "";
+  }
+}
+
+function defaultLogo(){
+
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg"
+       width="300"
+       height="300"
+       viewBox="0 0 300 300">
+    <defs>
+      <linearGradient id="g"
+        x1="0"
+        x2="1"
+        y1="0"
+        y2="1">
+        <stop stop-color="#7c5cff"/>
+        <stop offset="1" stop-color="#35d49a"/>
+      </linearGradient>
+    </defs>
+    <rect width="300" height="300" rx="70" fill="#0b0d17"/>
+    <rect x="20" y="20" width="260" height="260"
+          rx="60"
+          fill="url(#g)"
+          opacity=".18"/>
+    <text x="150"
+          y="178"
+          text-anchor="middle"
+          font-family="Arial"
+          font-size="75"
+          font-weight="900"
+          fill="white">A</text>
+  </svg>`;
+
+  return "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(svg);
+}
+
+function logo(url){
+
+  return url || defaultLogo();
+}
+
+function toast(message,type="normal"){
+
+  const el = document.createElement("div");
+
+  el.className = "toast";
+
+  if(type === "success"){
+    el.style.borderColor = "rgba(53,212,154,.35)";
+  }
+
+  if(type === "danger"){
+    el.style.borderColor = "rgba(255,85,112,.35)";
+  }
+
+  el.textContent = message;
+
+  document
+    .getElementById("toastContainer")
+    .appendChild(el);
+
+  setTimeout(()=>{
+    el.remove();
+  },2800);
+}
+
+function applyTheme(){
+
+  document.documentElement.dataset.theme =
+    state.settings.theme === "light"
+      ? "light"
+      : "dark";
+
+  document.documentElement.style.setProperty(
+    "--accent",
+    state.settings.accent
+  );
+
+  const hex = state.settings.accent.replace("#","");
+
+  const r = parseInt(hex.substring(0,2),16);
+  const g = parseInt(hex.substring(2,4),16);
+  const b = parseInt(hex.substring(4,6),16);
+
+  document.documentElement.style.setProperty(
+    "--accent-rgb",
+    `${r},${g},${b}`
+  );
+}
+
+
+/* =========================================================
+   ROUTER
+========================================================= */
+
+function route(){
+
+  const hash = location.hash || "#/home";
+
+  if(hash === "#/manage"){
+
+    if(isAdmin){
+      renderAdmin();
+    }else{
+      renderLogin();
+    }
+
+    return;
+  }
+
+  renderHome();
+}
+
+window.addEventListener("hashchange",route);
+
+
+/* =========================================================
+   PUBLIC HOME
+========================================================= */
+
+function renderHome(){
+
+  applyTheme();
+
+  const categories = [
+    "All",
+    ...new Set(
+      state.links
+        .map(x => x.category)
+        .filter(Boolean)
+    )
+  ];
+
+  const filtered = state.links.filter(link => {
+
+    const categoryMatch =
+      currentFilter === "All" ||
+      (currentFilter === "Pinned" && link.favorite) ||
+      link.category === currentFilter;
+
+    const searchText =
+      `${link.name} ${link.description} ${link.category}`
+      .toLowerCase();
+
+    const searchMatch =
+      !currentSearch ||
+      searchText.includes(currentSearch.toLowerCase());
+
+    return categoryMatch && searchMatch;
+  });
+
+  const pinned =
+    state.links.filter(x => x.favorite).length;
+
+  const cats =
+    new Set(state.links.map(x=>x.category)).size;
+
+  document.getElementById("app").innerHTML = `
+
+    <header class="topbar">
+      <div class="container nav">
+
+        <a href="#/home" class="brand">
+          <img
+            class="brand-logo"
+            src="${escapeHTML(logo(state.settings.logo))}"
+            onerror="this.src='${defaultLogo()}'"
+          >
+
+          <div class="brand-text">
+            <div class="brand-title">
+              ${escapeHTML(state.settings.title)}
+            </div>
+            <div class="brand-sub">
+              Official Link Hub
+            </div>
+          </div>
+        </a>
+
+        <div class="nav-actions">
+
+          <button
+            class="btn icon-btn"
+            id="themeBtn"
+            title="Change theme">
+            ${state.settings.theme === "dark" ? "☀️" : "🌙"}
+          </button>
+
+          <a href="#/manage"
+             class="btn">
+             ⚙️ <span class="label">Manage</span>
+          </a>
+
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+
+      <section class="hero">
+
+        <img
+          class="hero-logo"
+          src="${escapeHTML(logo(state.settings.logo))}"
+          onerror="this.src='${defaultLogo()}'"
+        >
+
+        <h1>
+          ${escapeHTML(state.settings.title)}
+        </h1>
+
+        <p>
+          ${escapeHTML(state.settings.description)}
+        </p>
+
+        <div class="stats">
+
+          <div class="stat glass">
+            <strong>${state.links.length}</strong>
+            <span>Links</span>
+          </div>
+
+          <div class="stat glass">
+            <strong>${pinned}</strong>
+            <span>Pinned</span>
+          </div>
+
+          <div class="stat glass">
+            <strong>${cats}</strong>
+            <span>Categories</span>
+          </div>
+
+        </div>
+
+      </section>
+
+      ${state.settings.showSearch ? `
+
+      <div class="search-wrap">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+          id="publicSearch"
+          class="search"
+          placeholder="Search links..."
+          value="${escapeHTML(currentSearch)}"
+        >
+
+      </div>
+
+      ` : ""}
+
+      <div class="filters">
+
+        ${categories.map(cat => `
+
+          <button
+            class="filter ${
+              currentFilter === cat ? "active" : ""
+            }"
+            data-filter="${escapeHTML(cat)}">
+
+            ${cat === "Pinned" ? "⭐ " : ""}
+            ${escapeHTML(cat)}
+
+          </button>
+
+        `).join("")}
+
+        ${!categories.includes("Pinned") && pinned > 0 ? `
+          <button
+            class="filter ${
+              currentFilter === "Pinned" ? "active" : ""
+            }"
+            data-filter="Pinned">
+            ⭐ Pinned
+          </button>
+        ` : ""}
+
+      </div>
+
+      <section class="link-list">
+
+        ${
+          filtered.length
+          ?
+          filtered.map((link,index)=>`
+
+            <a
+              class="link-card"
+              href="${escapeHTML(link.url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="animation-delay:${index * 35}ms">
+
+              <img
+                class="link-image"
+                src="${escapeHTML(
+                  link.image ||
+                  `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(link.url)}&sz=128`
+                )}"
+                onerror="this.src='${defaultLogo()}'"
+                alt=""
+              >
+
+              <div class="link-info">
+
+                <div class="link-title">
+
+                  ${escapeHTML(link.name)}
+
+                  ${
+                    link.favorite
+                    ? `<span title="Pinned">⭐</span>`
+                    : ""
+                  }
+
+                </div>
+
+                <div class="link-description">
+                  ${escapeHTML(
+                    link.description || link.url
+                  )}
+                </div>
+
+                <div class="link-meta">
+
+                  <span class="badge">
+                    ${escapeHTML(link.category)}
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div class="link-arrow">
+                ↗
+              </div>
+
+            </a>
+
+          `).join("")
+
+          :
+
+          `
+          <div class="empty glass">
+
+            <strong>No links found</strong>
+
+            Try another search or category.
+
+          </div>
+          `
+        }
+
+      </section>
+
+      <footer class="footer">
+        ${escapeHTML(state.settings.footer)}
+      </footer>
+
+    </main>
+  `;
+
+  document
+    .getElementById("themeBtn")
+    ?.addEventListener("click",toggleTheme);
+
+  document
+    .getElementById("publicSearch")
+    ?.addEventListener("input",e=>{
+      currentSearch = e.target.value;
+      renderHome();
+      setTimeout(()=>{
+        const input = document.getElementById("publicSearch");
+        if(input){
+          input.focus();
+          input.setSelectionRange(
+            input.value.length,
+            input.value.length
+          );
+        }
+      },0);
+    });
+
+  document
+    .querySelectorAll("[data-filter]")
+    .forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        currentFilter = btn.dataset.filter;
+        renderHome();
+      });
+    });
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function toggleTheme(){
+
+  state.settings.theme =
+    state.settings.theme === "dark"
+      ? "light"
+      : "dark";
+
+  saveState();
+  applyTheme();
+  route();
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function renderLogin(){
+
+  applyTheme();
+
+  document.getElementById("app").innerHTML = `
+
+    <main class="login-screen">
+
+      <section class="login-box glass">
+
+        <img
+          class="login-logo"
+          src="${escapeHTML(logo(state.settings.logo))}"
+          onerror="this.src='${defaultLogo()}'"
+        >
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+          Enter the administrator password to continue.
+        </p>
+
+        <form id="loginForm">
+
+          <div class="form-group"
+               style="text-align:left">
+
+            <label>ADMIN PASSWORD</label>
+
+            <div class="password-wrap">
+
+              <input
+                class="input"
+                id="adminPassword"
+                type="password"
+                autocomplete="off"
+                placeholder="Enter password"
+                required
+              >
+
+              <button
+                type="button"
+                class="eye"
+                id="showPassword">
+                👁
+              </button>
+
+            </div>
+
+          </div>
+
+          <button
+            class="btn primary"
+            style="width:100%"
+            type="submit">
+
+            🔐 Login to Dashboard
+
+          </button>
+
+        </form>
+
+        <a
+          href="#/home"
+          class="btn"
+          style="width:100%;margin-top:10px">
+
+          ← Back to Website
+
+        </a>
+
+      </section>
+
+    </main>
+  `;
+
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit",e=>{
+
+      e.preventDefault();
+
+      const password =
+        document.getElementById("adminPassword").value;
+
+      if(password === ADMIN_PASSWORD){
+
+        isAdmin = true;
+
+        sessionStorage.setItem(
+          "ARYHACKS_ADMIN",
+          "1"
+        );
+
+        toast(
+          "Admin login successful",
+          "success"
+        );
+
+        location.hash = "#/manage";
+
+      }else{
+
+        toast(
+          "Incorrect admin password",
+          "danger"
+        );
+
+        document
+          .getElementById("adminPassword")
+          .select();
+      }
+
+    });
+
+  document
+    .getElementById("showPassword")
+    .addEventListener("click",()=>{
+
+      const input =
+        document.getElementById("adminPassword");
+
+      input.type =
+        input.type === "password"
+          ? "text"
+          : "password";
+    });
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+function renderAdmin(){
+
+  applyTheme();
+
+  const pinned =
+    state.links.filter(x=>x.favorite).length;
+
+  const categories =
+    new Set(state.links.map(x=>x.category)).size;
+
+  document.getElementById("app").innerHTML = `
+
+    <header class="topbar">
+
+      <div class="container nav">
+
+        <a href="#/home" class="brand">
+
+          <img
+            class="brand-logo"
+            src="${escapeHTML(logo(state.settings.logo))}"
+            onerror="this.src='${defaultLogo()}'"
+          >
+
+          <div class="brand-text">
+            <div class="brand-title">
+              ${escapeHTML(state.settings.title)}
+            </div>
+            <div class="brand-sub">
+              Admin Control Center
+            </div>
+          </div>
+
+        </a>
+
+        <div class="nav-actions">
+
+          <a href="#/home" class="btn">
+            👁 <span class="label">Preview</span>
+          </a>
+
+          <button
+            class="btn danger"
+            id="logoutBtn">
+            🚪 <span class="label">Logout</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <main class="container admin">
+
+      <div class="admin-header">
+
+        <div class="admin-title">
+
+          <h1>Dashboard</h1>
+
+          <p>
+            Manage your link hub and website settings.
+          </p>
+
+        </div>
+
+        <button
+          class="btn primary"
+          id="addLinkBtn">
+          ＋ Add Link
+        </button>
+
+      </div>
+
+      <section class="dashboard-stats">
+
+        <div class="dash-card glass">
+          <div class="dash-icon">🔗</div>
+          <strong>${state.links.length}</strong>
+          <span>Total Links</span>
+        </div>
+
+        <div class="dash-card glass">
+          <div class="dash-icon">⭐</div>
+          <strong>${pinned}</strong>
+          <span>Pinned Links</span>
+        </div>
+
+        <div class="dash-card glass">
+          <div class="dash-icon">🏷️</div>
+          <strong>${categories}</strong>
+          <span>Categories</span>
+        </div>
+
+        <div class="dash-card glass">
+          <div class="dash-icon">💾</div>
+          <strong>ON</strong>
+          <span>Auto Save</span>
+        </div>
+
+      </section>
+
+      <div class="admin-grid">
+
+        <aside>
+
+          <section class="panel glass">
+
+            <div class="panel-head">
+
+              <div>
+                <h2>Website Settings</h2>
+                <p>Customize your public page.</p>
+              </div>
+
+              <span class="badge">LIVE</span>
+
+            </div>
+
+            <div class="form-group">
+              <label>WEBSITE NAME</label>
+              <input
+                class="input"
+                id="settingTitle"
+                value="${escapeHTML(state.settings.title)}"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>DESCRIPTION</label>
+              <textarea
+                class="textarea"
+                id="settingDescription"
+              >${escapeHTML(state.settings.description)}</textarea>
+            </div>
+
+            <div class="form-group">
+
+              <label>LOGO URL</label>
+
+              <input
+                class="input"
+                id="settingLogo"
+                value="${escapeHTML(state.settings.logo)}"
+                placeholder="https://..."
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label>ACCENT COLOR</label>
+
+              <div class="color-row">
+
+                <input
+                  type="color"
+                  class="color-input"
+                  id="settingAccent"
+                  value="${escapeHTML(state.settings.accent)}"
+                >
+
+                <input
+                  class="input"
+                  id="settingAccentText"
+                  value="${escapeHTML(state.settings.accent)}"
+                >
+
+              </div>
+
+            </div>
+
+            <div class="form-group">
+
+              <label>THEME</label>
+
+              <select
+                class="select"
+                id="settingTheme">
+
+                <option value="dark"
+                  ${state.settings.theme==="dark"?"selected":""}>
+                  Dark
+                </option>
+
+                <option value="light"
+                  ${state.settings.theme==="light"?"selected":""}>
+                  Light
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="switch-row">
+
+              <span>Show Search</span>
+
+              <button
+                class="switch ${
+                  state.settings.showSearch ? "on" : ""
+                }"
+                id="searchSwitch">
+              </button>
+
+            </div>
+
+            <div class="form-group"
+                 style="margin-top:15px">
+
+              <label>FOOTER TEXT</label>
+
+              <input
+                class="input"
+                id="settingFooter"
+                value="${escapeHTML(state.settings.footer)}"
+              >
+
+            </div>
+
+            <button
+              class="btn primary"
+              style="width:100%"
+              id="saveSettings">
+
+              ✓ Save Website Settings
+
+            </button>
+
+          </section>
+
+
+          <section class="panel glass">
+
+            <div class="panel-head">
+
+              <div>
+                <h2>Backup & Restore</h2>
+                <p>Keep a copy of your data.</p>
+              </div>
+
+            </div>
+
+            <div class="backup-grid">
+
+              <button
+                class="btn success"
+                id="exportBtn">
+                ⬇ Export
+              </button>
+
+              <button
+                class="btn"
+                id="importBtn">
+                ⬆ Import
+              </button>
+
+              <input
+                type="file"
+                id="importFile"
+                accept=".json"
+                hidden
+              >
+
+            </div>
+
+            <button
+              class="btn danger"
+              id="resetBtn"
+              style="width:100%;margin-top:8px">
+
+              ♻ Reset Everything
+
+            </button>
+
+          </section>
+
+        </aside>
+
+
+        <section>
+
+          <section class="panel glass">
+
+            <div class="panel-head">
+
+              <div>
+                <h2>Your Links</h2>
+                <p>
+                  Drag links to reorder them.
+                </p>
+              </div>
+
+              <button
+                class="btn"
+                id="adminSearchBtn">
+                🔎 Search
+              </button>
+
+            </div>
+
+            <div
+              id="adminSearchWrap"
+              class="search-wrap hidden">
+
+              <span class="search-icon">⌕</span>
+
+              <input
+                class="search"
+                id="adminSearch"
+                placeholder="Search your links..."
+              >
+
+            </div>
+
+            <div
+              class="admin-links"
+              id="adminLinks">
+
+              ${renderAdminLinks()}
+
+            </div>
+
+          </section>
+
+        </section>
+
+      </div>
+
+    </main>
+  `;
+
+  bindAdminEvents();
+}
+
+
+/* =========================================================
+   ADMIN LINK LIST
+========================================================= */
+
+function renderAdminLinks(){
+
+  if(!state.links.length){
+
+    return `
+      <div class="empty">
+        <strong>No links yet</strong>
+        Click "Add Link" to create your first link.
+      </div>
+    `;
+  }
+
+  return state.links.map(link=>`
+
+    <article
+      class="admin-link"
+      draggable="true"
+      data-id="${escapeHTML(link.id)}">
+
+      <span class="drag">⋮⋮</span>
+
+      <img
+        class="admin-link-image"
+        src="${escapeHTML(
+          link.image ||
+          `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(link.url)}&sz=128`
+        )}"
+        onerror="this.src='${defaultLogo()}'"
+      >
+
+      <div class="admin-link-info">
+
+        <strong>
+
+          ${escapeHTML(link.name)}
+
+          ${link.favorite ? " ⭐" : ""}
+
+        </strong>
+
+        <small>
+          ${escapeHTML(link.url)}
+        </small>
+
+        <span class="badge">
+          ${escapeHTML(link.category)}
+        </span>
+
+      </div>
+
+      <div class="admin-actions">
+
+        <button
+          class="mini-btn"
+          data-action="up"
+          data-id="${escapeHTML(link.id)}"
+          title="Move up">
+          ↑
+        </button>
+
+        <button
+          class="mini-btn"
+          data-action="down"
+          data-id="${escapeHTML(link.id)}"
+          title="Move down">
+          ↓
+        </button>
+
+        <button
+          class="mini-btn"
+          data-action="edit"
+          data-id="${escapeHTML(link.id)}"
+          title="Edit">
+          ✎
+        </button>
+
+        <button
+          class="mini-btn"
+          data-action="delete"
+          data-id="${escapeHTML(link.id)}"
+          title="Delete">
+          🗑
+        </button>
+
+      </div>
+
+    </article>
+
+  `).join("");
+}
+
+
+/* =========================================================
+   ADMIN EVENTS
+========================================================= */
+
+function bindAdminEvents(){
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener("click",logout);
+
+  document
+    .getElementById("addLinkBtn")
+    .addEventListener("click",()=>openLinkModal());
+
+  document
+    .getElementById("saveSettings")
+    .addEventListener("click",saveSettings);
+
+  document
+    .getElementById("settingAccent")
+    .addEventListener("input",e=>{
+
+      document.getElementById(
+        "settingAccentText"
+      ).value = e.target.value;
+
+    });
+
+  document
+    .getElementById("settingAccentText")
+    .addEventListener("input",e=>{
+
+      if(/^#[0-9a-f]{6}$/i.test(e.target.value)){
+
+        document.getElementById(
+          "settingAccent"
+        ).value = e.target.value;
+
+      }
+
+    });
+
+  document
+    .getElementById("searchSwitch")
+    .addEventListener("click",()=>{
+
+      state.settings.showSearch =
+        !state.settings.showSearch;
+
+      saveState();
+
+      document
+        .getElementById("searchSwitch")
+        .classList.toggle(
+          "on",
+          state.settings.showSearch
+        );
+    });
+
+  document
+    .getElementById("exportBtn")
+    .addEventListener("click",exportData);
+
+  document
+    .getElementById("importBtn")
+    .addEventListener("click",()=>{
+      document.getElementById("importFile").click();
+    });
+
+  document
+    .getElementById("importFile")
+    .addEventListener("change",importData);
+
+  document
+    .getElementById("resetBtn")
+    .addEventListener("click",resetEverything);
+
+  document
+    .getElementById("adminSearchBtn")
+    .addEventListener("click",()=>{
+
+      document
+        .getElementById("adminSearchWrap")
+        .classList.toggle("hidden");
+
+    });
+
+  document
+    .getElementById("adminSearch")
+    ?.addEventListener("input",filterAdminLinks);
+
+  document
+    .querySelectorAll("[data-action]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        const action = btn.dataset.action;
+        const id = btn.dataset.id;
+
+        if(action === "edit"){
+          openLinkModal(id);
+        }
+
+        if(action === "delete"){
+          deleteLink(id);
+        }
+
+        if(action === "up"){
+          moveLink(id,-1);
+        }
+
+        if(action === "down"){
+          moveLink(id,1);
+        }
+
+      });
+
+    });
+
+  bindDragAndDrop();
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function saveSettings(){
+
+  const title =
+    document.getElementById("settingTitle").value.trim();
+
+  const description =
+    document.getElementById("settingDescription").value.trim();
+
+  const logo =
+    document.getElementById("settingLogo").value.trim();
+
+  const accent =
+    document.getElementById("settingAccent").value;
+
+  const theme =
+    document.getElementById("settingTheme").value;
+
+  const footer =
+    document.getElementById("settingFooter").value.trim();
+
+  if(!title){
+
+    toast(
+      "Website name cannot be empty",
+      "danger"
+    );
+
+    return;
+  }
+
+  state.settings.title = title;
+  state.settings.description = description;
+  state.settings.logo = logo;
+  state.settings.accent = accent;
+  state.settings.theme = theme;
+  state.settings.footer = footer;
+
+  saveState();
+  applyTheme();
+
+  toast(
+    "Website settings saved",
+    "success"
+  );
+
+  renderAdmin();
+}
+
+
+/* =========================================================
+   ADD / EDIT MODAL
+========================================================= */
+
+function openLinkModal(id=null){
+
+  const modal =
+    document.getElementById("linkModal");
+
+  const form =
+    document.getElementById("linkForm");
+
+  form.reset();
+
+  document.getElementById("editId").value =
+    id || "";
+
+  document.getElementById("favoriteSwitch")
+    .classList.remove("on");
+
+  document.getElementById("imagePreview")
+    .style.display = "none";
+
+  if(id){
+
+    const link =
+      state.links.find(x=>x.id===id);
+
+    if(!link) return;
+
+    document.getElementById("modalTitle")
+      .textContent = "Edit Link";
+
+    document.getElementById("linkName").value =
+      link.name;
+
+    document.getElementById("linkUrl").value =
+      link.url;
+
+    document.getElementById("linkImage").value =
+      link.image;
+
+    document.getElementById("linkDescription").value =
+      link.description;
+
+    document.getElementById("linkCategory").value =
+      link.category;
+
+    if(link.favorite){
+
+      document
+        .getElementById("favoriteSwitch")
+        .classList.add("on");
+
+    }
+
+    if(link.image){
+
+      showImagePreview(link.image);
+    }
+
+  }else{
+
+    document.getElementById("modalTitle")
+      .textContent = "Add New Link";
+
+    document.getElementById("linkCategory").value =
+      "Website";
+  }
+
+  updateCategoryList();
+
+  modal.classList.add("open");
+
+  setTimeout(()=>{
+    document
+      .getElementById("linkName")
+      .focus();
+  },100);
+}
+
+function closeLinkModal(){
+
+  document
+    .getElementById("linkModal")
+    .classList.remove("open");
+}
+
+document
+  .getElementById("closeModal")
+  .addEventListener("click",closeLinkModal);
+
+document
+  .getElementById("cancelModal")
+  .addEventListener("click",closeLinkModal);
+
+document
+  .getElementById("linkModal")
+  .addEventListener("click",e=>{
+
+    if(e.target.id === "linkModal"){
+      closeLinkModal();
+    }
+
+  });
+
+document
+  .getElementById("favoriteSwitch")
+  .addEventListener("click",function(){
+
+    this.classList.toggle("on");
+
+  });
+
+document
+  .getElementById("linkImage")
+  .addEventListener("input",e=>{
+
+    if(e.target.value.trim()){
+
+      showImagePreview(e.target.value.trim());
+
+    }else{
+
+      document
+        .getElementById("imagePreview")
+        .style.display = "none";
+
+    }
+
+  });
+
+document
+  .getElementById("faviconBtn")
+  .addEventListener("click",()=>{
+
+    const url =
+      normalizeUrl(
+        document.getElementById("linkUrl").value
+      );
+
+    if(!url){
+
+      toast(
+        "Enter a valid website URL first",
+        "danger"
+      );
+
+      return;
+    }
+
+    const favicon =
+      `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(url)}&sz=128`;
+
+    document.getElementById("linkImage").value =
+      favicon;
+
+    showImagePreview(favicon);
+
+    toast(
+      "Website favicon added",
+      "success"
+    );
+  });
+
+function showImagePreview(url){
+
+  const img =
+    document.getElementById("imagePreview");
+
+  img.style.display = "block";
+
+  img.src = url;
+
+  img.onerror = ()=>{
+    img.style.display = "none";
+  };
+}
+
+function updateCategoryList(){
+
+  const categories =
+    [...new Set(
+      state.links
+        .map(x=>x.category)
+        .filter(Boolean)
+    )];
+
+  document.getElementById("categoryList").innerHTML =
+    categories
+      .map(x=>`<option value="${escapeHTML(x)}">`)
+      .join("");
+}
+
+
+/* =========================================================
+   FORM SAVE
+========================================================= */
+
+document
+  .getElementById("linkForm")
+  .addEventListener("submit",e=>{
+
+    e.preventDefault();
+
+    const id =
+      document.getElementById("editId").value;
+
+    const name =
+      document.getElementById("linkName").value.trim();
+
+    const url =
+      normalizeUrl(
+        document.getElementById("linkUrl").value
+      );
+
+    const image =
+      document.getElementById("linkImage").value.trim();
+
+    const description =
+      document
+        .getElementById("linkDescription")
+        .value
+        .trim();
+
+    const category =
+      document
+        .getElementById("linkCategory")
+        .value
+        .trim() || "Other";
+
+    const favorite =
+      document
+        .getElementById("favoriteSwitch")
+        .classList.contains("on");
+
+    if(!name){
+
+      toast(
+        "Enter a link name",
+        "danger"
+      );
+
+      return;
+    }
+
+    if(!url){
+
+      toast(
+        "Enter a valid HTTP/HTTPS URL",
+        "danger"
+      );
+
+      return;
+    }
+
+    if(id){
+
+      const index =
+        state.links.findIndex(x=>x.id===id);
+
+      if(index !== -1){
+
+        state.links[index] = {
+          ...state.links[index],
+          name,
+          url,
+          image,
+          description,
+          category,
+          favorite
+        };
+
+      }
+
+      toast(
+        "Link updated",
+        "success"
+      );
+
+    }else{
+
+      state.links.unshift({
+
+        id:uid(),
+        name,
+        url,
+        image,
+        description,
+        category,
+        favorite
+
+      });
+
+      toast(
+        "New link added",
+        "success"
+      );
+    }
+
+    saveState();
+    closeLinkModal();
+    renderAdmin();
+
+  });
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+function deleteLink(id){
+
+  const link =
+    state.links.find(x=>x.id===id);
+
+  if(!link) return;
+
+  const ok =
+    confirm(
+      `Delete "${link.name}"?`
+    );
+
+  if(!ok) return;
+
+  state.links =
+    state.links.filter(x=>x.id!==id);
+
+  saveState();
+
+  toast(
+    "Link deleted",
+    "success"
+  );
+
+  renderAdmin();
+}
+
+
+/* =========================================================
+   MOVE
+========================================================= */
+
+function moveLink(id,direction){
+
+  const index =
+    state.links.findIndex(x=>x.id===id);
+
+  const newIndex =
+    index + direction;
+
+  if(
+    index < 0 ||
+    newIndex < 0 ||
+    newIndex >= state.links.length
+  ){
+    return;
+  }
+
+  [
+    state.links[index],
+    state.links[newIndex]
+  ] = [
+    state.links[newIndex],
+    state.links[index]
+  ];
+
+  saveState();
+  renderAdmin();
+
+  toast(
+    "Link order updated",
+    "success"
+  );
+}
+
+
+/* =========================================================
+   DRAG & DROP
+========================================================= */
+
+function bindDragAndDrop(){
+
+  const items =
+    document.querySelectorAll(".admin-link");
+
+  items.forEach(item=>{
+
+    item.addEventListener("dragstart",()=>{
+
+      draggedId = item.dataset.id;
+
+      item.classList.add("dragging");
+
+    });
+
+    item.addEventListener("dragend",()=>{
+
+      item.classList.remove("dragging");
+
+      draggedId = null;
+
+    });
+
+    item.addEventListener("dragover",e=>{
+
+      e.preventDefault();
+
+    });
+
+    item.addEventListener("drop",e=>{
+
+      e.preventDefault();
+
+      const targetId =
+        item.dataset.id;
+
+      if(!draggedId || draggedId===targetId){
+        return;
+      }
+
+      const from =
+        state.links.findIndex(
+          x=>x.id===draggedId
+        );
+
+      const to =
+        state.links.findIndex(
+          x=>x.id===targetId
+        );
+
+      if(from === -1 || to === -1) return;
+
+      const [moved] =
+        state.links.splice(from,1);
+
+      state.links.splice(to,0,moved);
+
+      saveState();
+      renderAdmin();
+
+      toast(
+        "Links reordered",
+        "success"
+      );
+
+    });
+
+  });
+}
+
+
+/* =========================================================
+   ADMIN SEARCH
+========================================================= */
+
+function filterAdminLinks(){
+
+  const query =
+    document
+      .getElementById("adminSearch")
+      .value
+      .toLowerCase();
+
+  document
+    .querySelectorAll(".admin-link")
+    .forEach(item=>{
+
+      item.style.display =
+        item.innerText
+          .toLowerCase()
+          .includes(query)
+          ? "flex"
+          : "none";
+
+    });
+}
+
+
+/* =========================================================
+   EXPORT
+========================================================= */
+
+function exportData(){
+
+  const backup = {
+
+    app:"ARYHACKS Link Hub",
+
+    version:5,
+
+    exportedAt:
+      new Date().toISOString(),
+
+    data:state
+
+  };
+
+  const blob =
+    new Blob(
+      [JSON.stringify(backup,null,2)],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "aryhacks-linkhub-backup.json";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+  toast(
+    "Backup exported",
+    "success"
+  );
+}
+
+
+/* =========================================================
+   IMPORT
+========================================================= */
+
+function importData(e){
+
+  const file =
+    e.target.files[0];
+
+  if(!file) return;
+
+  const reader =
+    new FileReader();
+
+  reader.onload = ()=>{
+
+    try{
+
+      const parsed =
+        JSON.parse(reader.result);
+
+      const imported =
+        parsed.data || parsed;
+
+      if(
+        !imported ||
+        !Array.isArray(imported.links)
+      ){
+
+        throw new Error("Invalid backup");
+      }
+
+      state =
+        normalizeState(imported);
+
+      saveState();
+      applyTheme();
+
+      toast(
+        "Backup imported successfully",
+        "success"
+      );
+
+      renderAdmin();
+
+    }catch(error){
+
+      console.error(error);
+
+      toast(
+        "Invalid backup file",
+        "danger"
+      );
+
+    }
+
+    e.target.value = "";
+
+  };
+
+  reader.readAsText(file);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetEverything(){
+
+  const ok =
+    confirm(
+      "This will delete all links and settings. Continue?"
+    );
+
+  if(!ok) return;
+
+  state =
+    clone(defaultState);
+
+  saveState();
+  applyTheme();
+
+  toast(
+    "Everything has been reset",
+    "success"
+  );
+
+  renderAdmin();
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+  isAdmin = false;
+
+  sessionStorage.removeItem(
+    "ARYHACKS_ADMIN"
+  );
+
+  location.hash = "#/home";
+
+  toast(
+    "Logged out",
+    "success"
+  );
+}
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key === "Escape"){
+
+    closeLinkModal();
+
+  }
+
+  if(
+    (e.ctrlKey || e.metaKey) &&
+    e.key.toLowerCase() === "k"
+  ){
+
+    e.preventDefault();
+
+    if(location.hash !== "#/home"){
+      return;
+    }
+
+    document
+      .getElementById("publicSearch")
+      ?.focus();
+  }
+
+});
+
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+if(
+  sessionStorage.getItem("ARYHACKS_ADMIN") === "1"
+){
+  isAdmin = true;
+}
+
+applyTheme();
+
+setTimeout(()=>{
+
+  document
+    .getElementById("loader")
+    .classList.add("hide");
+
+},500);
+
+route();
+
+</script>
+
+</body>
+</html>
